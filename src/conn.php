@@ -21,5 +21,13 @@
 
         return false;
     }
+
+    function buscarPorNome($nome = null) {
+       $stmt = conn()->prepare("SELECT m.nome,  m.rua, c.numero_da_casa FROM morador as m join casa as c
+                on m.idcasa = c.idcasa WHERE c.numero_da_casa  like ? LIMIT 1");
+       $stmt->execute(["%" . $nome . "%"]); 
+
+       return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
    
     
